@@ -8,16 +8,5 @@
         "url" : "https://github.com/harsla/reponet_api.git"
       }
     "dependencies": {
-        "express": "^4.4.1",
-        "serve-favicon": "^2.0.0",
-        "morgan": "^1.1.1",
-        "body-parser": "^1.3.0",
-        "method-override": "^2.0.1",
-        "winston": "^0.7.3",
-        "mongoose": "^3.8.12",
-        "nconf": "^0.6.9",
-        "Faker": "^0.7.2",
-        "oauth2orize": "^1.0.1",
-        "passport": "^0.2.0"
   }
 }
