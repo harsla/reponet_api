@@ -1,4 +1,4 @@
 reponet
 =======
 
-Real rime notification and geolocation based vehicle recovery platform
+Real-time notification and geolocation based vehicle recovery platform
