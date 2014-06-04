@@ -22,6 +22,7 @@ router.get('/', function (req, res) {
 	res.json({ message: 'repoNet API v1' });
 });
 
+// CRUD:
 router.route('/users')
 	.post(function (req, res) {
 		
@@ -90,10 +91,9 @@ router.route('/users/:user_id')
 	});
 
 
-// REGISTER OUR ROUTES -------------------------------
+// register routs
 app.use('/api', router);
 
-// START THE SERVER
-// =============================================================================
+// vroom
 app.listen(port);
 console.log('Magic happens on port ' + port);
