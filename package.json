@@ -1,12 +1,15 @@
 {
-    "name": "reponet_api",
-    "author": "Scott Harsla <harsla@gmail.com>",
-    "description": "Real rime notification and geolocation based vehicle recovery platform",
-    "repository" :
-      { 
-        "type" : "git",
-        "url" : "https://github.com/harsla/reponet_api.git"
-      }
-    "dependencies": {
+  "name": "reponet_api",
+  "author": "Scott Harsla <harsla@gmail.com>",
+  "description": "Real rime notification and geolocation based vehicle recovery platform",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harsla/reponet_api.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.3.0",
+    "express": "^4.4.1",
+    "mongoose": "^3.8.12",
+    "morgan": "^1.1.1"
   }
 }
