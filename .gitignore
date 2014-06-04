@@ -27,9 +27,6 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
-# The todo list
-todo
-
 # OSX .DS_Store & .swp files
 .DS_Store
 *.swp

@@ -23,20 +23,17 @@ router.get('/', function (req, res) {
 });
 
 // CRUD:
+
 router.route('/users')
 	.post(function (req, res) {
-		
 		var user = new User();		// create a new instance of the user model
 		user.name = req.body.name;  // extract the user's 'name' from the request
-
 		user.save(function (err) {
 			if (err) {
 				res.send(err);
             }
 			res.json({ message: 'User ' + user.name + ' created!' });
 		});
-
-		
 	})
 
 	// get all the users (accessed at GET http://localhost:8080/api/users)
@@ -63,7 +60,6 @@ router.route('/users/:user_id')
 	// update the user with this id
 	.put(function (req, res) {
 		User.findById(req.params.user_id, function (err, user) {
-
 			if (err) {
 				res.send(err);
             }
@@ -74,7 +70,6 @@ router.route('/users/:user_id')
                 }
 				res.json({ message: 'User updated!' });
 			});
-
 		});
 	})
 
