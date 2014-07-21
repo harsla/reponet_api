@@ -4,6 +4,7 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     jwt = require('jwt-simple'),
+    moment = require('moment'),
     app = express();
 
 app.use(bodyParser());
@@ -46,7 +47,18 @@ router.route('/auth')
 //          }
 
           // User has authenticated OK
-          res.send(200);
+            var expires = moment().add('days', 7).valueOf();
+            var token = jwt.encode({
+              iss: user.id,
+              exp: expires
+            }, app.get('jwtTokenSecret'));
+
+            res.json({
+              token : token,
+              expires: expires,
+              user: user.toJSON()
+            });
+            res.send(200);
         });
     });
 
