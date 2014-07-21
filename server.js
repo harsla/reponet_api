@@ -3,9 +3,11 @@
 
 var express = require('express'),
     bodyParser = require('body-parser'),
+    jwt = require('jwt-simple'),
     app = express();
 
 app.use(bodyParser());
+app.set('jwtTokenSecret', 'RinMarieHarsla');
 
 var port = process.env.PORT || 1337,
     mongoose = require('mongoose'),
@@ -21,6 +23,32 @@ router.use(function (req, res, next) {
 router.get('/', function (req, res) {
 	res.json({ message: 'repoNet API v1' });
 });
+
+router.route('/auth')
+    .get(function (req, res) {
+        console.log(req.headers.username);
+        
+        //auth here
+        User.findOne({ username: req.headers.username }, function(err, user) {
+          if (err) { 
+            // user not found 
+            return res.send(401);
+          }
+
+          if (!user) {
+            // incorrect username
+            return res.send(401);
+          }
+
+//          if (!user.validPassword(password)) {
+//            // incorrect password
+//            return res.send(401);
+//          }
+
+          // User has authenticated OK
+          res.send(200);
+        });
+    });
 
 router.route('/users')
 	.post(function (req, res) {
