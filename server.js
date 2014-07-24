@@ -5,10 +5,19 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     jwt = require('jwt-simple'),
     moment = require('moment'),
+    jwauth = require('./jwtauth.js'),
     app = express();
 
 app.use(bodyParser());
-app.set('jwtTokenSecret', 'RinMarieHarsla');
+app.set('jwtTokenSecret', 'AlsrahEiramNir');
+
+var requireAuth = function(req, res, next) {
+	if (!req.user) {
+		res.end('Not authorized', 401)
+	}	else {
+		next();
+	}
+}
 
 var port = process.env.PORT || 1337,
     mongoose = require('mongoose'),
@@ -21,8 +30,8 @@ router.use(function (req, res, next) {
 	next();
 });
 
-router.get('/', function (req, res) {
-	res.json({ message: 'repoNet API v1' });
+router.get('/', jwauth, requireAuth, function (req, res) {
+	res.json({ message: 'Welcome, ' + req.user.username});
 });
 
 router.route('/auth')
@@ -30,7 +39,7 @@ router.route('/auth')
         console.log(req.headers.username);
         
         //auth here
-        User.findOne({ username: req.headers.username }, function(err, user) {
+        User.findOne({ username: req.headers.username }, function (err, user) {
           if (err) { 
             // user not found 
             return res.send(401);
@@ -47,7 +56,7 @@ router.route('/auth')
 //          }
 
           // User has authenticated OK
-            var expires = moment().add('days', 7).valueOf();
+            var expires = moment().add('days', 1).valueOf();
             var token = jwt.encode({
               iss: user.id,
               exp: expires
