@@ -90,7 +90,7 @@ router.route('/users')
 	})
 
 	// get all the users (accessed at GET http://localhost:8080/api/users)
-	.get(function (req, res) {
+	.get(jwauth, requireAuth, function (req, res) {
 		User.find(function (err, users) {
 			if (err) { res.send(err); }
 			res.json(users);
@@ -99,7 +99,7 @@ router.route('/users')
 
 // on routes that end in /users/:user_id
 router.route('/users/:user_id')
-    .get(function (req, res) {
+    .get(jwauth, requireAuth, function (req, res) {
         User.findById(req.params.user_id, function (err, user) {
             if (err) { res.send(err); }
             res.json(user);
@@ -107,7 +107,7 @@ router.route('/users/:user_id')
     })
 
 	// update the user with this id
-	.put(function (req, res) {
+	.put(jwauth, requireAuth, function (req, res) {
 		User.findById(req.params.user_id, function (err, user) {
 			if (err) { res.send(err); }
 			user.name = req.body.name;
@@ -119,7 +119,7 @@ router.route('/users/:user_id')
 	})
 
 	// delete the user with this id
-	.delete(function (req, res) {
+	.delete(jwauth, requireAuth, function (req, res) {
 		User.remove({
 			_id: req.params.user_id
 		}, function (err, user) {
@@ -127,7 +127,6 @@ router.route('/users/:user_id')
 			res.json({ message: 'User successfully deleted' });
 		});
 	});
-
 
 // register routs
 app.use('/api', router);
