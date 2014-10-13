@@ -4,12 +4,15 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     jwt = require('jwt-simple'),
+    cors = require('cors'),
     moment = require('moment'),
     jwauth = require('./jwtauth.js'),
+    passport = require('passport'),
     app = express();
 
 app.use(bodyParser());
 app.set('jwtTokenSecret', 'AlsrahEiramNir');
+app.use(cors());
 
 var requireAuth = function(req, res, next) {
 	if (!req.user) {
@@ -35,13 +38,13 @@ router.get('/', jwauth, requireAuth, function (req, res) {
 });
 
 router.route('/auth')
-    .get(function (req, res) {
+    .post(function (req, res) {
         console.log(req.headers.username);
-        
+
         //auth here
         User.findOne({ username: req.headers.username }, function (err, user) {
-          if (err) { 
-            // user not found 
+          if (err) {
+            // user not found
             return res.send(401);
           }
 
@@ -74,7 +77,7 @@ router.route('/auth')
 router.route('/users')
 	.post(function (req, res) {
 		var user = new User();
-		
+
         user.username = req.body.username;  // extract the user's 'name' from the request
         //password_hash: String,
         //password_salt: String,
@@ -82,7 +85,7 @@ router.route('/users')
         user.email = req.body.email;
         user.firstname = req.body.firstname;
         user.lastname = req.body.lastname;
-		
+
         user.save(function (err) {
 			if (err) { res.send(err); }
 			res.json({ message: 'User ' + user.name + ' created!' });
