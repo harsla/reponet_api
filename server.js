@@ -11,7 +11,7 @@ var express = require('express'),
     app = express();
 
 app.use(bodyParser());
-app.set('jwtTokenSecret', 'AlsrahEiramNir');
+app.set('jwtTokenSecret', 'LOL_not_real');
 app.use(cors());
 
 var requireAuth = function(req, res, next) {
@@ -52,11 +52,6 @@ router.route('/auth')
             // incorrect username
             return res.send(401);
           }
-
-//          if (!user.validPassword(password)) {
-//            // incorrect password
-//            return res.send(401);
-//          }
 
           // User has authenticated OK
             var expires = moment().add('days', 1).valueOf();
